@@ -1,7 +1,7 @@
 /*	Author: kmo004
  *  Partner(s) Name: Moker(Ke) Bellomo
  *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Assignment: Lab # 4 Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -12,68 +12,76 @@
  #include "simAVRHeader.h"
  #endif
 
-int main(void){
-	DDRA = 0x00; PORTA = 0xFF;
-	DDRB = 0x00; PORTB = 0xFF;
-	DDRC = 0xFF; PORTC = 0x00;
+enum STATES { START, INIT, PLUS, MINUS, RESET} state;
 
-	unsigned char numTotal = 0x00;
+int main(void){
 	
-while(1){
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRC = 0xFF; PORTC = 0x07;
+	state = START;
 	
-	if(PINA & 0x01){
-		numTotal = numTotal + 0x01;
+	while(1){
+		tick();
 	}
-	if(PINA & 0x02){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINA & 0x04){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINA & 0x08){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINA & 0x10){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINA & 0x20){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINA & 0x40){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINA & 0x80){
-		numTotal = numTotal + 0x01;
-	}
-	
-	if(PINB & 0x01){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINB & 0x02){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINB & 0x04){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINB & 0x08){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINB & 0x10){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINB & 0x20){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINB & 0x40){
-		numTotal = numTotal + 0x01;
-	}
-	if(PINB & 0x80){
-		numTotal = numTotal + 0x01;
-	}
-	
-	PORTC = numTotal;
-	numTotal = 0;
-}
-	
 	return 1;
+}
+
+
+
+void tick(){
+	switch(state){
+		case START:
+		state = INIT;
+		break;
+		
+		case INIT:
+		if(PINA == 0){
+			state = RESET;
+		}
+		else if (PINA == 1){
+			state = PLUS;
+		}
+		else if (PINA == 2){
+			state = MINUS;
+		}
+		else{
+			state = INIT;
+		}
+		break;
+		
+		case PLUS:
+		state = INIT;
+		break;
+		
+		case MINUS:
+		state = INIT;
+		break;
+		
+		case RESET:
+		state = INIT;
+		break;
+	}
+	switch(state){
+		case START:
+		break;
+		
+		case INIT:
+		break;
+		
+		case PLUS:
+		if(PORTC < 9){
+			PORTC = PORTC + 1;
+		}
+		break;
+		
+		case MINUS:
+		if(PORTC > 0){
+			PORTC = PORTC - 1;
+		}
+		break;
+		
+		case: RESET:
+			PORTC = 0x00;
+		break;
+	}
 }
