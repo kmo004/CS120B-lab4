@@ -30,6 +30,7 @@ void tick(){
 		case start:
 		PORTB = 0x01;
 		state = begin;
+			
 		break;
 		
 		case begin:
