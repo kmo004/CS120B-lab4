@@ -34,6 +34,28 @@ expectPORTB 0
 expect state INIT
 checkResult
 
+test "PINA: 0x00,0x01 => PORTB: 0, state = S1"
+set state = START
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+expectPORTB 0
+expect state S1
+checkResult
+
+test "PINA: 0x00,0x01,0x00 => PORTB: 0, state = S2"
+set state = START
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+expectPORTB 0
+expect state S2
+checkResult
+
 test "PINA: 0x00 => PORTB: 0, state = OPEN"
 set state = S3
 setPINA 0x00
