@@ -28,6 +28,7 @@ echo Running all tests..."\n\n
 
 
 test "PINA: 0x01 => PORTC: 8, state = PLUS"
+set state = START;
 setPINA 0x01
 continue 2
 expectPORTC 8
