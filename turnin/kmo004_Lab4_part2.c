@@ -14,20 +14,6 @@
 
 enum STATES { START, INIT, PLUS, MINUS, RESET} state;
 
-int main(void){
-	
-	DDRA = 0x00; PORTA = 0xFF;
-	DDRC = 0xFF; PORTC = 0x07;
-	state = START;
-	
-	while(1){
-		tick();
-	}
-	return 1;
-}
-
-
-
 void tick(){
 	switch(state){
 		case START:
@@ -84,4 +70,16 @@ void tick(){
 			PORTC = 0x00;
 		break;
 	}
+}
+
+int main(void){
+	
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRC = 0xFF; PORTC = 0x07;
+	state = START;
+	
+	while(1){
+		tick();
+	}
+	return 1;
 }
