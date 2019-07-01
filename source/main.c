@@ -12,7 +12,7 @@
  #include "simAVRHeader.h"
  #endif
 
-enum states {START, INIT, PLUS, MINUS, RESET} state;
+enum STATES { START, INIT, PLUS, MINUS, RESET} state;
 
 int main(void){
 	
