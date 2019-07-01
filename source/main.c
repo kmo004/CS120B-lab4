@@ -15,8 +15,9 @@ enum States {START,INIT,S1,S2,S3,OPEN} state;
 
 int main(void) {
 
-	DDRA= 0xFF; PORTA = 0x00;
-	DDRB= 0x00; PORTB = 0xFF;
+	DDRA = 0xFF; PORTA = 0x00;
+	DDRB = 0x00; PORTB = 0xFF;
+	DDRC = 0xFF; PORTC = 0x00;
 	
 	
 	while (1) {
@@ -27,7 +28,6 @@ int main(void) {
 }
 
 void tick(){
-	
 	switch(state) {
 		case START:
 		state = INIT;
@@ -35,7 +35,7 @@ void tick(){
 		
 		case INIT:
 		if(PINA == 1){
-			state= S1;
+			state = S1;
 		}
 		else{
 			state= INIT;
@@ -90,23 +90,29 @@ void tick(){
 	
 	switch(state) {
 		case START:
+		PORTC = 0x00;
 		break;
 		
 		case INIT:
 		PORTB = 0x00;
+		PORTC = 0x01;
 		break;
 		
 		case S1:
+		PORTC = 0x02;
 		break;
 		
 		case S2:
+		PORTC = 0x03;
 		break;
 		
 		case S3:
+		PORTC = 0x04;
 		break;
 		
 		case OPEN:
 		PORTB = 0x01;
+		PORTC = 0x05
 		break;
 		
 	}
