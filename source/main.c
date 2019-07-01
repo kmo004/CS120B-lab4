@@ -8,7 +8,7 @@
  *	code, is my own original work.
  */
  #include <avr/io.h>
- enum States{start,begin,on,off,wait} state;
+ enum States{start,begin,on,off,wait1} state;
  void tick();
  #ifdef _SIMULATE_
  #include "simAVRHeader.h"
@@ -44,7 +44,7 @@ void tick(){
 		
 		case off:
 		if((~PINA & 0x01) == 0x01){
-			state = wait;
+			state = wait1;
 			break;
 		}
 		else{
@@ -53,7 +53,7 @@ void tick(){
 		}
 		case on:
 		if((~PINA & 0x01) == 0x00){
-			state = wait;
+			state = wait1;
 			break;
 		}
 		else{
@@ -61,13 +61,13 @@ void tick(){
 			break;
 		}
 		
-		case wait:
+		case wait1:
 		if((~PINA & 0x01) == 0x01){
 			state = on;
 			break;
 		}
 		else{
-			state = wait;
+			state = wait1;
 			break;
 		}
 		
@@ -90,7 +90,7 @@ void tick(){
 		PORTB = 0x02;
 		break;
 		
-		case wait:
+		case wait1:
 		break;
 		
 		default:
