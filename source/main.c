@@ -27,57 +27,64 @@ int main(void){
 		
 		case INIT:
 		if((~PINA & 0x01) == 0x01){
+			printf("INIT IF ");
 			state = OFF; 
 			break;
+			
 		}
 		else{
+			printf("INIT ELSE ");
 			state = INIT; 
 			break;
 		}
 		
 		case OFF:
 		if((~PINA & 0x01) == 0x00){
+			printf("OFF IF ");
 			state = WAIT1; 
 			break;
+			
 		}
-		else
-		{
+		else{
+			printf("OFF ELSE ");
 			state = OFF; 
 			break;
+			
 		}
 			
 		case ON:
-		if((~PINA & 0x01) == 0x00)
-		{
+		if((~PINA & 0x01) == 0x00){
+			printf("ON IF ");
 			state = WAIT2; 
 			break;
+			
 		}
-		else
-		{
+		else{
+			printf("ON ELSE ");
 			state = ON; 
 			break;
 		}
 		
 		case WAIT1:
-		if((~PINA & 0x01) == 0x01)
-		{
+		if((~PINA & 0x01) == 0x01){
+			printf("WAIT1 IF ");
 			state = ON; 
 			break;
 		}
-		else
-		{
+		else{
+			printf("WAIT1 else ");
 			state = WAIT1; 
 			break;
 		}
 		
 		case WAIT2:
-		if((~PINA & 0x01) == 0x01)
-		{
+		if((~PINA & 0x01) == 0x01){
+			printf("WAIT2 else ");
 			state = OFF; 
 			break;
 		}
-		else
-		{
+		else{
+			printf("WAIT2 else ");
 			state = WAIT2; 
 			break;
 		}
