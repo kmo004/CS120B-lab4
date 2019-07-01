@@ -16,7 +16,7 @@ int main(void)
 {
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x01;
-	enum states {Start, INIT, TURN_OFF, WAIT1, TURN_ON, WAIT2}state;
+	enum states {Start, INIT, TURN_OFF, WAIT1, TURN_ON, WAIT2} state;
 	state = Start;
 	while(1)
 	{
