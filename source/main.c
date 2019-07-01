@@ -8,8 +8,6 @@
  *	code, is my own original work.
  */
  #include <avr/io.h>
-enum States {Start, INIT, TURN_OFF, WAIT1, TURN_ON, WAIT2}state;
-void Tick();
  #ifdef _SIMULATE_
  #include "simAVRHeader.h"
  #endif
@@ -18,6 +16,7 @@ int main(void)
 {
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x01;
+	enum States {Start, INIT, TURN_OFF, WAIT1, TURN_ON, WAIT2}state;
 	state = Start;
 	while(1)
 	{
