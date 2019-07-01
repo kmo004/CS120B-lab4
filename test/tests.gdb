@@ -35,7 +35,7 @@ expect state INIT
 checkResult
 
 test "PINA: 0x00 => PORTB: 0, state = OPEN"
-set state = STEP_3
+set state = S3
 setPINA 0x00
 continue 2
 expectPORTB 0x01
