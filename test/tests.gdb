@@ -27,7 +27,7 @@ echo ======================================================\n
 echo Running all tests..."\n\n
 
 
-test “PINA: 0x00,=> PORTB: 0x01;
+test “PINA: 0x00,=> PORTB: 0x01";
 setPINA 0x00
 continue 2
 expectPORTB 0x01;
