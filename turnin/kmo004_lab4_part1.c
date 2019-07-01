@@ -40,44 +40,37 @@ int main(void){
 			state = WAIT1; 
 			break;
 		}
-		else
-		{
+		else{
 			state = OFF; 
 			break;
 		}
 			
 		case ON:
-		if((~PINA & 0x01) == 0x00)
-		{
+		if((~PINA & 0x01) == 0x00){
 			state = WAIT2; 
 			break;
 		}
-		else
-		{
+		else{
 			state = ON; 
 			break;
 		}
 		
 		case WAIT1:
-		if((~PINA & 0x01) == 0x01)
-		{
+		if((~PINA & 0x01) == 0x01){
 			state = ON; 
 			break;
 		}
-		else
-		{
+		else{
 			state = WAIT1; 
 			break;
 		}
 		
 		case WAIT2:
-		if((~PINA & 0x01) == 0x01)
-		{
+		if((~PINA & 0x01) == 0x01){
 			state = OFF; 
 			break;
 		}
-		else
-		{
+		else{
 			state = WAIT2; 
 			break;
 		}
