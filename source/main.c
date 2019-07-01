@@ -11,11 +11,11 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
-enum STATES { START, INIT, S1, S2, S3, OPEN} state;
+enum States {START,INIT,S1,S2,S3,OPEN} state;
 
 int main(void) {
 
-	DDRA= 0xFF; PORTA=0x00;
+	DDRA= 0xFF; PORTA = 0x00;
 	DDRB= 0x00; PORTB = 0xFF;
 	
 	
@@ -43,11 +43,11 @@ void tick(){
 		break;
 		
 		case S1:
-		if(PINA == 1){
-			state = S1;
+		if(PINA == 0){
+			state = S2;
 		}
-		else if(PINA == 0){
-			state= S2;
+		else if(PINA == 1){
+			state= S1;
 		}
 		else{
 			state= INIT;
@@ -67,11 +67,11 @@ void tick(){
 		break;
 		
 		case S3:
-		if (PINA == 2){
-			state = S3;
+		if (PINA == 0){
+			state = OPEN;
 		}
-		else if (PINA == 0){
-			state= OPEN;
+		else if (PINA == 2){
+			state = S3;
 		}
 		else{
 			state = INIT;
@@ -93,7 +93,7 @@ void tick(){
 		break;
 		
 		case INIT:
-		PORTB= 0x00;
+		PORTB = 0x00;
 		break;
 		
 		case S1:
