@@ -12,22 +12,14 @@
  #include "simAVRHeader.h"
  #endif
 
-int main(void)
-{
+int main(void){
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x01;
 	enum states {Start, INIT, OFF, ON, WAIT1, WAIT2} state;
 	state = Start;
 	
-	while(1)
-	{
-		Tick();
-	}
-}
-
-
-void Tick(){
-	switch(state){ 
+	while(1){
+		switch(state){ 
 		case Start:
 		PORTB = 0x01;
 		state = INIT;
@@ -92,30 +84,33 @@ void Tick(){
 		
 		default:
 		break;
-	}
-	switch(state){ 
-		case Start:
-		break;
+		}
+		switch(state){ 
+			case Start:
+			break;
 		
-		case INIT:
-		PORTB = 0x01;
-		break;
+			case INIT:
+			PORTB = 0x01;
+			break;
 		
-		case OFF:
-		PORTB = 0x02;
-		break;
+			case OFF:
+			PORTB = 0x02;
+			break;
 		
-		case ON:
-		PORTB = 0x01;
-		break;
+			case ON:
+			PORTB = 0x01;
+			break;
 		
-		case WAIT1:
-		break;
+			case WAIT1:
+			break;
 		
-		case WAIT2:
-		break;
+			case WAIT2:
+			break;
 		
-		default:
-		break;
+			default:
+			break;
+		}
 	}
 }
+
+
