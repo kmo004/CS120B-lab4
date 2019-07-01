@@ -27,12 +27,15 @@ echo ======================================================\n
 echo Running all tests..."\n\n
 
 
-test “PINA: 0x00,=> PORTB: 0x01";
+test "PINA: 0x00, 0x01 => PORTB: 1, state: wait1"
+set state = INIT
 setPINA 0x00
 continue 2
-expectPORTB 0x01;
+setPINA 0x01
+continue 2
+expectPORTB 0x01
+expect state WAIT1
 checkResult
-
 
 
 
