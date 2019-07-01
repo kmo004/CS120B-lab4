@@ -8,90 +8,104 @@
  *	code, is my own original work.
  */
  #include <avr/io.h>
- enum States{start,begin,on,off,wait1} state;
- void tick();
+enum States {Start, INIT, TURN_OFF, WAIT1, TURN_ON, WAIT2}state;
+void Tick();
  #ifdef _SIMULATE_
  #include "simAVRHeader.h"
  #endif
 
-int main(void){
+int main(void)
+{
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x01;
-	state = start;
-	
-	while(1){
-		tick();
-	}	
-	return 1;
+	state = Start;
+	while(1)
+	{
+		Tick();
+	}
 }
 
-void tick(){
-	switch(state){
-		case start:
+
+void Tick(){
+	switch(state){ 
+		case Start:
 		PORTB = 0x01;
-		state = begin;
-			
+		state = INIT;
 		break;
 		
-		case begin:
-		if((~PINA & 0x01) == 0x01){
-			state = off;
-			break;
+		case INIT:
+		if((~PINA & 0x01) == 0x01)
+		{
+			state = TURN_OFF; break;
 		}
-		else{
-			state = begin;
-			break;
-		}
-		
-		case off:
-		if((~PINA & 0x01) == 0x01){
-			state = wait1;
-			break;
-		}
-		else{
-			state = off;
-			break;
-		}
-		case on:
-		if((~PINA & 0x01) == 0x00){
-			state = wait1;
-			break;
-		}
-		else{
-			state = on;
-			break;
+		else
+		{
+			state = INIT; break;
 		}
 		
-		case wait1:
-		if((~PINA & 0x01) == 0x01){
-			state = on;
-			break;
+		case TURN_OFF:
+		if((~PINA & 0x01) == 0x00)
+		{
+			state = WAIT1; break;
 		}
-		else{
-			state = wait1;
-			break;
+		else
+		{
+			state = TURN_OFF; break;
+		}
+		
+		case WAIT1:
+		if((~PINA & 0x01) == 0x01)
+		{
+			state = TURN_ON; break;
+		}
+		else
+		{
+			state = WAIT1; break;
+		}
+		
+		case TURN_ON:
+		if((~PINA & 0x01) == 0x00)
+		{
+			state = WAIT2; break;
+		}
+		else
+		{
+			state = TURN_ON; break;
+		}
+		
+		case WAIT2:
+		if((~PINA & 0x01) == 0x01)
+		{
+			state = TURN_OFF; break;
+		}
+		else
+		{
+			state = WAIT2; break;
 		}
 		
 		default:
 		break;
 	}
-	switch(state){
-		case start:
+	switch(state){ 
+		case Start:
 		break;
 		
-		case begin:
+		case INIT:
 		PORTB = 0x01;
 		break;
 		
-		case on:
-		PORTB = 0x01;
-		break;
-		
-		case off:
+		case TURN_OFF:
 		PORTB = 0x02;
 		break;
 		
-		case wait1:
+		case WAIT1:
+		break;
+		
+		case TURN_ON:
+		PORTB = 0x01;
+		break;
+		
+		case WAIT2:
 		break;
 		
 		default:
