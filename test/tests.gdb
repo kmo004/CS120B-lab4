@@ -28,7 +28,7 @@ echo Running all tests..."\n\n
 
 
 test "PINA: 0x00, 0x01 => PORTB: 1, state: wait1"
-set state = INIT
+set state = START
 setPINA 0x00
 continue 2
 setPINA 0x01
